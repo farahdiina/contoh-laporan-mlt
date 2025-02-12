@@ -68,15 +68,21 @@ Variabel-variabel pada dataset adalah sebagai berikut:
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - distribusi ranting film
+  
 <img width="638" alt="image" src="https://github.com/user-attachments/assets/335aa2bf-64d6-441c-9a55-3cbc68ebf14f" />
+
 Grafik ini menunjukkan distribusi rating film dengan mayoritas berada di kisaran 5 hingga 7, dengan puncak sekitar 6. Distribusi cenderung miring ke kiri, menunjukkan bahwa sebagian besar film memiliki rating sedang, sementara film dengan rating sangat tinggi atau sangat rendah lebih jarang ditemukan.
 
 - Distribusi jumlah vote
-  <img width="641" alt="image" src="https://github.com/user-attachments/assets/1fbd0ec6-ac7a-4f68-b0e7-03a38fbef507" />
+  
+ <img width="641" alt="image" src="https://github.com/user-attachments/assets/1fbd0ec6-ac7a-4f68-b0e7-03a38fbef507" />
+
 Grafik ini menunjukkan distribusi jumlah vote pada film, dengan mayoritas film memiliki jumlah vote yang relatif rendah. Distribusi sangat right-skewed, di mana sebagian besar film mendapat sedikit vote, sementara hanya sedikit film yang mendapat vote dalam jumlah besar. Hal ini menunjukkan bahwa popularitas film tidak merata, dengan beberapa film sangat terkenal dan sebagian besar lainnya kurang dikenal.
 
 - Distribusi Budget Film
+  
   <img width="643" alt="image" src="https://github.com/user-attachments/assets/59cfbf10-3c40-4ed6-9c79-0df165c5647e" />
+
 Grafik ini menunjukkan distribusi budget film, yang memiliki kecendrungan ke kanan (positively skewed), di mana sebagian besar film memiliki anggaran yang relatif kecil, sementara hanya sedikit film dengan anggaran yang sangat besar. Mayoritas film berada pada kisaran budget rendah, sementara beberapa film blockbuster memiliki budget yang jauh lebih tinggi, menciptakan ekor panjang pada distribusi.
 
 ## Data Preparation
@@ -159,7 +165,9 @@ The Lord of the Rings: The Return of the King – Vote Average: 8.1 | Genre: Adv
 ## Evaluation
 Untuk mengevaluasi kinerja sistem rekomendasi yang dikembangkan, digunakan beberapa metrik evaluasi yang sesuai dengan pendekatan yang diterapkan.
 1. Mean Average Precision at K (MAP@K)
+   
    <img width="226" alt="image" src="https://github.com/user-attachments/assets/82724b6a-094d-42ee-91c8-4a67fc366bbc" />
+
 Di mana:
 U adalah jumlah pengguna
 K adalah jumlah rekomendasi teratas yang dipertimbangkan
@@ -177,7 +185,9 @@ Genre-Based Recommendation: 0.60
 Kesimpulan: Content-Based Filtering memberikan rekomendasi yang lebih sesuai dengan minat pengguna dibandingkan metode lainnya.
 
 2. Root Mean Square Error (RMSE)
+   
    <img width="201" alt="image" src="https://github.com/user-attachments/assets/8a2ebc32-c085-4801-adb5-611a34e6a78b" />
+
 Di mana:
 𝑦𝑖 adalah rating aktual film oleh pengguna
 𝑦𝑖' adalah rating yang diprediksi oleh sistem
@@ -194,6 +204,7 @@ Genre-Based Recommendation: 0.95
 Kesimpulan: Content-Based Filtering memiliki kesalahan prediksi yang lebih kecil dibandingkan model lainnya.
 
 3. Coverage
+   
    <img width="251" alt="image" src="https://github.com/user-attachments/assets/4169b2fe-383f-427c-8e41-f4b491bd1054" />
 
 Cara Kerja:
@@ -209,6 +220,6 @@ Kesimpulan: Content-Based Filtering memiliki cakupan rekomendasi yang lebih luas
 
 
 Kesimpulan Akhir
-Berdasarkan evaluasi dengan metrik MAP@K, RMSE, dan Coverage, Content-Based Filtering menunjukkan performa terbaik dalam memberikan rekomendasi yang relevan, akurat, dan lebih beragam. Namun, untuk meningkatkan variasi dan eksplorasi film baru, sistem ini dapat dikombinasikan dengan pendekatan hybrid filtering, yang menggabungkan metode Content-Based dan Collaborative Filtering.
+Proyek ini berhasil mengembangkan sistem rekomendasi film berbasis content-based filtering menggunakan TF-IDF dan cosine similarity. Sistem ini mampu memberikan rekomendasi film yang relevan berdasarkan kemiripan deskripsi dan genre, serta menyediakan alternatif rekomendasi berdasarkan popularitas dan genre pilihan pengguna. Dari hasil pengujian, sistem mampu menyesuaikan rekomendasi dengan preferensi pengguna, sehingga membantu mengatasi kesulitan dalam memilih film dari banyaknya pilihan yang tersedia (Pernyataan Masalah 1). Selain itu, pendekatan content-based filtering meningkatkan relevansi rekomendasi dibandingkan sistem tradisional yang kurang personalisasi (Pernyataan Masalah 2). Namun, sistem ini memiliki keterbatasan dalam mengeksplorasi film baru yang berbeda dari riwayat pengguna (Pernyataan Masalah 3), karena hanya berfokus pada kemiripan fitur. Secara keseluruhan, proyek ini mencapai tujuannya dalam menyediakan rekomendasi film yang lebih sesuai dengan preferensi pengguna, meskipun masih ada ruang untuk perbaikan, seperti menggabungkan metode collaborative filtering atau hybrid filtering untuk meningkatkan variasi rekomendasi.
 
 **---Ini adalah bagian akhir laporan---**
