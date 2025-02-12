@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning - Frah Dina
+# Laporan Proyek Machine Learning - Farah Dina
 
 ## Project Overview
 
