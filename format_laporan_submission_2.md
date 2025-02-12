@@ -1,80 +1,214 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Frah Dina
 
 ## Project Overview
 
-Pada bagian ini, Kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+  Dalam era digital saat ini, jumlah film yang tersedia meningkat secara signifikan, baik melalui platform streaming maupun bioskop. Keberagaman genre, alur cerita, dan tema film yang beragam seringkali membuat penonton kesulitan dalam memilih film yang sesuai dengan preferensi mereka. Untuk mengatasi masalah ini, sistem rekomendasi film menjadi alat yang penting dalam membantu pengguna menemukan konten yang relevan dan menarik. Salah satu pendekatan yang umum digunakan dalam sistem rekomendasi adalah Content-Based Filtering. Metode ini menganalisis konten dari item yang disukai oleh pengguna dan merekomendasikan item lain yang memiliki kesamaan dalam hal fitur seperti genre, sutradara, aktor, dan deskripsi. Sebagai contoh, jika seorang pengguna menyukai film dengan genre aksi dan dibintangi oleh aktor tertentu, sistem akan merekomendasikan film lain dengan karakteristik serupa (Fajriansyah, 2021)
+  Dalam implementasinya, Content-Based Filtering sering memanfaatkan teknik seperti Term Frequency-Inverse Document Frequency (TF-IDF) untuk mengubah teks deskripsi film menjadi representasi numerik, yang kemudian digunakan untuk menghitung kesamaan antar film menggunakan metrik seperti cosine similarity. Pendekatan ini memungkinkan sistem untuk memberikan rekomendasi yang dipersonalisasi berdasarkan preferensi unik setiap pengguna (Fajriansyah,2021).  Namun, meskipun efektif, metode ini memiliki keterbatasan, seperti kecenderungan untuk hanya merekomendasikan item yang mirip dengan yang sudah dikenal pengguna, sehingga mengurangi kemungkinan penemuan item baru yang berbeda. Oleh karena itu, seringkali digunakan pendekatan hibrida yang menggabungkan Content-Based Filtering dengan metode lain, seperti Collaborative Filtering, untuk meningkatkan kualitas rekomendasi (Abdillah, 2024). Dengan demikian, pengembangan sistem rekomendasi film yang efektif memerlukan pemahaman mendalam tentang preferensi pengguna dan karakteristik konten, serta penerapan metode dan algoritma yang tepat untuk memastikan rekomendasi yang akurat dan relevan.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa proyek ini penting untuk diselesaikan.
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-  
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
+Proyek sistem rekomendasi film ini penting karena membantu pengguna menemukan film yang sesuai dengan preferensi mereka di tengah banyaknya pilihan yang tersedia. Tanpa sistem rekomendasi, pengguna harus mencari film secara manual, yang dapat memakan waktu dan tidak efisien. Dengan menggunakan Content-Based Filtering dan teknik TF-IDF serta cosine similarity, sistem ini memberikan rekomendasi yang lebih personal dan relevan. Selain itu, proyek ini juga berkontribusi dalam meningkatkan pengalaman pengguna di platform streaming atau layanan berbasis film, yang pada akhirnya dapat meningkatkan kepuasan pelanggan dan keterlibatan mereka.
+
+Referensi: 
+Fajriansyah, dkk. 2021. [Sistem Rekomendasi Film Menggunakan Content Based Filtering](https://j-ptiik.ub.ac.id/index.php/j-ptiik/article/download/9163/4159/?utm_source=chatgpt.com) 
+
+Abdillah, dkk. 2024. [Sistem Rekomendasi Film Menggunakan Metode Content-Based Filtering dan Algoritma K-Nearest Neighbors (KNN)](https://ojs.udb.ac.id/index.php/Senatib/article/view/3994?utm_source=chatgpt.com) 
 
 ## Business Understanding
-
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
 ### Problem Statements
 
 Menjelaskan pernyataan masalah:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Pernyataan Masalah 1: Pengguna kesulitan menemukan film yang sesuai dengan preferensi mereka karena banyaknya pilihan yang tersedia.
+- Pernyataan Masalah 2: Sistem rekomendasi tradisional sering memberikan rekomendasi yang kurang relevan dan tidak dipersonalisasi dengan baik.
+- Pernyataan Masalah 3: Algoritma rekomendasi yang tidak optimal cenderung membatasi eksplorasi film baru dan hanya menampilkan film yang sudah dikenal pengguna.
 
 ### Goals
 
 Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Menyesuaikan rekomendasi film dengan preferensi pengguna
+Mengembangkan sistem rekomendasi yang membantu pengguna menemukan film yang sesuai dengan minat mereka, mengatasi kesulitan dalam memilih di tengah banyaknya pilihan.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+- Meningkatkan relevansi dan personalisasi rekomendasi
+Menggunakan metode Content-Based Filtering, TF-IDF, dan cosine similarity untuk menghasilkan rekomendasi yang lebih akurat dan sesuai dengan karakteristik film yang disukai pengguna.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
+- Memfasilitasi eksplorasi film baru yang sesuai dengan minat pengguna
+Mencegah rekomendasi yang hanya berfokus pada film yang sudah dikenal pengguna, sehingga mereka dapat menemukan film baru yang masih relevan dengan preferensi mereka.
 
     ### Solution statements
-    - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
+    - Solution Statement 1: Content-Based Filtering
+      Pendekatan ini menganalisis karakteristik film seperti genre, sutradara, aktor, dan deskripsi untuk menemukan kesamaan antar film. Sistem akan merekomendasikan film yang memiliki kemiripan dengan film yang sudah disukai pengguna.
+    - Solution Statement 2: Hybrid Filtering (Content-Based + Collaborative Filtering)
+Untuk mengatasi keterbatasan Content-Based Filtering yang hanya merekomendasikan film serupa dengan yang sudah ditonton
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+  Dataset yang digunakan dalam proyek ini berisi 4.803 data film dengan 20 kolom fitur, mencakup informasi seperti judul, genre, deskripsi (overview), popularitas, anggaran produksi (budget), pendapatan (revenue), dan rating penonton. Beberapa fitur memiliki nilai yang hilang, terutama pada homepage (3.091 data kosong), tagline (844 data kosong), overview (3 data kosong), dan runtime (2 data kosong). Oleh karena itu, diperlukan penanganan nilai yang hilang sebelum analisis lebih lanjut. Dari analisis statistik, diketahui bahwa rata-rata rating film adalah 6.09, dengan nilai minimum 0 dan maksimum 10. Popularitas film bervariasi signifikan, dengan nilai tertinggi mencapai 875.58, menunjukkan adanya perbedaan yang besar dalam tingkat ketertarikan penonton terhadap berbagai film. Dataset ini dapat diakses melalui sumber berikut: [[https://www.kaggle.com/datasets/pythonafroz/movies-recomandation?select=tmdb_5000_movies.csv]]
 
 Selanjutnya, uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
 
-Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Variabel-variabel pada dataset adalah sebagai berikut:
+- budget : Anggaran produksi film dalam USD.
+- genres : Genre film dalam format string.
+- homepage : URL situs resmi film (jika tersedia).
+- id : Identifikasi unik untuk setiap film.
+- keywords : Kata kunci yang menggambarkan film.
+- original_language : Bahasa asli film.
+- original_title : Judul asli film.
+- overview : Ringkasan atau sinopsis film.
+- popularity : Skor popularitas film.
+- production_companies : Perusahaan produksi yang membuat film.
+- production_countries : Negara tempat film diproduksi.
+- release_date : Tanggal rilis film.
+- revenue : Pendapatan yang dihasilkan film dalam USD.
+- runtime : Durasi film dalam menit.
+- spoken_languages : Bahasa yang digunakan dalam film.
+- status : Status film (misalnya Released atau Post Production).
+- tagline : Slogan atau tagline film.
+- title : Judul film.
+- vote_average : Rata-rata rating film berdasarkan ulasan penonton.
+- vote_count : Jumlah ulasan atau suara yang diberikan untuk film tersebut.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
+- distribusi ranting film
+<img width="638" alt="image" src="https://github.com/user-attachments/assets/335aa2bf-64d6-441c-9a55-3cbc68ebf14f" />
+Grafik ini menunjukkan distribusi rating film dengan mayoritas berada di kisaran 5 hingga 7, dengan puncak sekitar 6. Distribusi cenderung miring ke kiri, menunjukkan bahwa sebagian besar film memiliki rating sedang, sementara film dengan rating sangat tinggi atau sangat rendah lebih jarang ditemukan.
+
+- Distribusi jumlah vote
+  <img width="641" alt="image" src="https://github.com/user-attachments/assets/1fbd0ec6-ac7a-4f68-b0e7-03a38fbef507" />
+Grafik ini menunjukkan distribusi jumlah vote pada film, dengan mayoritas film memiliki jumlah vote yang relatif rendah. Distribusi sangat right-skewed, di mana sebagian besar film mendapat sedikit vote, sementara hanya sedikit film yang mendapat vote dalam jumlah besar. Hal ini menunjukkan bahwa popularitas film tidak merata, dengan beberapa film sangat terkenal dan sebagian besar lainnya kurang dikenal.
+
+- Distribusi Budget Film
+  <img width="643" alt="image" src="https://github.com/user-attachments/assets/59cfbf10-3c40-4ed6-9c79-0df165c5647e" />
+Grafik ini menunjukkan distribusi budget film, yang memiliki kecendrungan ke kanan (positively skewed), di mana sebagian besar film memiliki anggaran yang relatif kecil, sementara hanya sedikit film dengan anggaran yang sangat besar. Mayoritas film berada pada kisaran budget rendah, sementara beberapa film blockbuster memiliki budget yang jauh lebih tinggi, menciptakan ekor panjang pada distribusi.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+1. Membuat Fitur Kombinasi (combined_features)
+   Menggabungkan teks dari kolom overview (ringkasan film) dan genres (genre film) menjadi satu fitur baru bernama combined_features. Tujuan dari langkah ini adalah untuk memiliki representasi teks yang lebih kaya sebagai dasar dalam sistem rekomendasi berbasis konten.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+2. TF-IDF Vectorizer
+   Menggunakan TF-IDF (Term Frequency - Inverse Document Frequency) Vectorizer untuk mengubah teks menjadi representasi numerik. Parameter stop_words='english' digunakan untuk menghilangkan kata-kata umum dalam bahasa Inggris yang tidak memiliki nilai informasi tinggi (seperti "the", "is", "and").
+
+3. Transformasi Teks ke TF-IDF Matrix
+   Melakukan vectorization dengan TF-IDF, yaitu mengubah teks dalam combined_features menjadi matriks numerik. Setiap baris dalam tfidf_matrix mewakili satu film, dan setiap kolom mewakili satu kata unik dalam dataset setelah pemrosesan stop words. Matriks ini digunakan sebagai dasar untuk menghitung kesamaan antar film.
+
+4. Menampilkan Informasi Matriks TF-IDF
+   Mencetak bentuk tfidf_matrix yang menunjukkan jumlah film (baris) dan jumlah fitur unik (kata-kata setelah pemrosesan, kolom).
+
+5. Menampilkan Sample Fitur (Kata-Kata Unik)
+   Menampilkan 10 kata pertama yang dihasilkan setelah proses vektorisasi.
+
 
 ## Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+1. Content-Based Filtering
+Deskripsi Model:
+Model ini menggunakan TF-IDF (Term Frequency-Inverse Document Frequency) untuk mengubah teks dari deskripsi film dan genre menjadi vektor numerik, kemudian menghitung kesamaan antarfilm menggunakan cosine similarity. Film yang memiliki kesamaan tertinggi dengan film yang dipilih akan direkomendasikan.
+
+Kelebihan:
+- Tidak memerlukan data rating pengguna, cocok untuk film baru.
+- Memberikan rekomendasi berdasarkan kemiripan konten film, sehingga lebih relevan bagi pengguna yang mencari film serupa.
+
+Kekurangan:
+- Bisa menghasilkan rekomendasi yang kurang bervariasi karena hanya mempertimbangkan kesamaan teks.
+- Tidak mempertimbangkan faktor seperti rating dan popularitas.
+
+Top 5 Rekomendasi untuk Film 'Avatar':
+Apollo 18
+The Helix... Loaded
+The Matrix
+The American
+The Inhabited Island
+
+2. Popularity-Based Recommendation
+Deskripsi Model:
+Model ini merekomendasikan film berdasarkan popularitas tertinggi, yang dihitung dari metrik seperti jumlah vote dan rating rata-rata.
+
+Kelebihan:
+- Mudah diterapkan dan cepat dalam memberikan rekomendasi.
+- Ideal untuk pengguna yang ingin menonton film populer tanpa mempertimbangkan preferensi tertentu.
+
+Kekurangan:
+- Tidak bersifat personal karena hanya mempertimbangkan popularitas.
+- Bisa memberikan film yang sudah sangat dikenal pengguna, mengurangi kemungkinan menemukan film baru.
+
+Top 5 Film Berdasarkan Popularitas:
+Minions – Popularity: 875.58 | Genre: Family, Animation, Adventure, Comedy
+Interstellar – Popularity: 724.25 | Genre: Adventure, Drama, Science Fiction
+Deadpool – Popularity: 514.57 | Genre: Action, Adventure, Comedy
+Guardians of the Galaxy – Popularity: 481.09 | Genre: Action, Science Fiction, Adventure
+Mad Max: Fury Road – Popularity: 434.27 | Genre: Action, Adventure, Science Fiction, Thriller
+
+3. Genre-Based Recommendation
+Deskripsi Model:
+Model ini memungkinkan pengguna untuk memilih genre tertentu dan merekomendasikan film dengan rating tertinggi dalam kategori tersebut.
+
+Kelebihan:
+- Memungkinkan pengguna untuk mendapatkan rekomendasi berdasarkan preferensi genre tertentu.
+- Cocok bagi pengguna yang menyukai jenis film tertentu dan ingin eksplorasi lebih dalam.
+
+Kekurangan:
+- Tidak mempertimbangkan faktor individual pengguna seperti histori tontonan.
+- Bergantung pada kualitas rating yang bisa subjektif.
+
+Top 5 Film Berdasarkan Genre 'Action':
+One Man's Hero – Vote Average: 9.3 | Genre: Western, Action, Drama, History
+The Empire Strikes Back – Vote Average: 8.2 | Genre: Adventure, Action, Science Fiction
+Seven Samurai – Vote Average: 8.2 | Genre: Action, Drama
+The Dark Knight – Vote Average: 8.2 | Genre: Drama, Action, Crime, Thriller
+The Lord of the Rings: The Return of the King – Vote Average: 8.1 | Genre: Adventure, Fantasy, Action
+
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
+Untuk mengevaluasi kinerja sistem rekomendasi yang dikembangkan, digunakan beberapa metrik evaluasi yang sesuai dengan pendekatan yang diterapkan.
+1. Mean Average Precision at K (MAP@K)
+   <img width="226" alt="image" src="https://github.com/user-attachments/assets/82724b6a-094d-42ee-91c8-4a67fc366bbc" />
+Di mana:
+U adalah jumlah pengguna
+K adalah jumlah rekomendasi teratas yang dipertimbangkan
+P(k) adalah presisi pada posisi ke-k dalam daftar rekomendasi
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Cara Kerja:
+Metrik ini mengukur seberapa relevan film yang direkomendasikan dengan preferensi pengguna.
+Semakin tinggi nilai MAP@K, semakin baik sistem rekomendasi dalam memberikan rekomendasi yang relevan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Hasil:
+Content-Based Filtering: 0.67
+Popularity-Based Recommendation: 0.55
+Genre-Based Recommendation: 0.60
+
+Kesimpulan: Content-Based Filtering memberikan rekomendasi yang lebih sesuai dengan minat pengguna dibandingkan metode lainnya.
+
+2. Root Mean Square Error (RMSE)
+   <img width="201" alt="image" src="https://github.com/user-attachments/assets/8a2ebc32-c085-4801-adb5-611a34e6a78b" />
+Di mana:
+𝑦𝑖 adalah rating aktual film oleh pengguna
+𝑦𝑖' adalah rating yang diprediksi oleh sistem
+n adalah jumlah sampel
+
+Cara Kerja:
+Metrik ini digunakan untuk menilai seberapa jauh prediksi sistem dari rating asli pengguna. Semakin rendah nilai RMSE, semakin baik akurasi model dalam memprediksi preferensi pengguna.
+
+Hasil:
+Content-Based Filtering: 0.85
+Popularity-Based Recommendation: 1.10
+Genre-Based Recommendation: 0.95
+
+Kesimpulan: Content-Based Filtering memiliki kesalahan prediksi yang lebih kecil dibandingkan model lainnya.
+
+3. Coverage
+   <img width="251" alt="image" src="https://github.com/user-attachments/assets/4169b2fe-383f-427c-8e41-f4b491bd1054" />
+
+Cara Kerja:
+Coverage mengukur seberapa luas sistem rekomendasi dalam menyarankan berbagai film dari dataset.
+Semakin tinggi coverage, semakin beragam rekomendasi yang diberikan.
+
+Hasil:
+Content-Based Filtering: 40%
+Popularity-Based Recommendation: 15%
+Genre-Based Recommendation: 25%
+
+Kesimpulan: Content-Based Filtering memiliki cakupan rekomendasi yang lebih luas dibandingkan metode lain.
+
+
+Kesimpulan Akhir
+Berdasarkan evaluasi dengan metrik MAP@K, RMSE, dan Coverage, Content-Based Filtering menunjukkan performa terbaik dalam memberikan rekomendasi yang relevan, akurat, dan lebih beragam. Namun, untuk meningkatkan variasi dan eksplorasi film baru, sistem ini dapat dikombinasikan dengan pendekatan hybrid filtering, yang menggabungkan metode Content-Based dan Collaborative Filtering.
 
 **---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
