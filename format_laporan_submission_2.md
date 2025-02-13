@@ -86,35 +86,50 @@ Grafik ini menunjukkan distribusi jumlah vote pada film, dengan mayoritas film m
 Grafik ini menunjukkan distribusi budget film, yang memiliki kecendrungan ke kanan (positively skewed), di mana sebagian besar film memiliki anggaran yang relatif kecil, sementara hanya sedikit film dengan anggaran yang sangat besar. Mayoritas film berada pada kisaran budget rendah, sementara beberapa film blockbuster memiliki budget yang jauh lebih tinggi, menciptakan ekor panjang pada distribusi.
 
 ## Data Preparation
-1. Membuat Fitur Kombinasi (combined_features)
+1. Menangani Missing Values
+  Mengisi nilai kosong (NaN) pada kolom overview, genres, dan release_date agar tidak menyebabkan error saat analisis data.
+- Kolom overview diisi dengan string kosong '' agar tetap bisa diproses dalam analisis teks.
+- Kolom genres diisi dengan string '[]' agar tetap berbentuk list kosong dalam string.
+- Kolom release_date diisi dengan tanggal default '1900-01-01' untuk menghindari nilai kosong pada data waktu.
+- Mengonversi release_date ke format datetime agar mudah digunakan dalam analisis berbasis waktu.
+
+2. Membuat Fitur Kombinasi (combined_features)
+  Fungsi process_genres() digunakan untuk memproses data genre yang berbentuk string JSON-like agar lebih mudah digunakan dalam analisis. Jika nilai genre kosong (NaN), fungsi akan mengembalikan string kosong (''). Dengan menggunakan ast.literal_eval(), string genre dikonversi menjadi daftar Python. Selanjutnya, nama-nama genre diekstrak dan digabungkan menjadi satu string dengan spasi sebagai pemisah. Jika terjadi kesalahan seperti ValueError, SyntaxError, atau KeyError, fungsi akan mencetak pesan error dan mengembalikan string kosong untuk menghindari gangguan pada pemrosesan data.
+
+3. Mengonversi format JSON-like
+   mengonversi format JSON-like menjadi string yang berisi nama-nama genre yang dipisahkan oleh spasi. Dengan cara ini, data genre menjadi lebih bersih dan mudah digunakan untuk analisis atau pemodelan sistem rekomendasi.
+
+4. memastikan bahwa kolom genre ada dan tidak kosong
+
+5. Membuat Fitur Kombinasi (combined_features)
    Menggabungkan teks dari kolom overview (ringkasan film) dan genres (genre film) menjadi satu fitur baru bernama combined_features. Tujuan dari langkah ini adalah untuk memiliki representasi teks yang lebih kaya sebagai dasar dalam sistem rekomendasi berbasis konten.
 
-2. TF-IDF Vectorizer
+6. TF-IDF Vectorizer
    Menggunakan TF-IDF (Term Frequency - Inverse Document Frequency) Vectorizer untuk mengubah teks menjadi representasi numerik. Parameter stop_words='english' digunakan untuk menghilangkan kata-kata umum dalam bahasa Inggris yang tidak memiliki nilai informasi tinggi (seperti "the", "is", "and").
 
-3. Transformasi Teks ke TF-IDF Matrix
+7. Transformasi Teks ke TF-IDF Matrix
    Melakukan vectorization dengan TF-IDF, yaitu mengubah teks dalam combined_features menjadi matriks numerik. Setiap baris dalam tfidf_matrix mewakili satu film, dan setiap kolom mewakili satu kata unik dalam dataset setelah pemrosesan stop words. Matriks ini digunakan sebagai dasar untuk menghitung kesamaan antar film.
 
-4. Menampilkan Informasi Matriks TF-IDF
+8. Menampilkan Informasi Matriks TF-IDF
    Mencetak bentuk tfidf_matrix yang menunjukkan jumlah film (baris) dan jumlah fitur unik (kata-kata setelah pemrosesan, kolom).
 
-5. Menampilkan Sample Fitur (Kata-Kata Unik)
+9. Menampilkan Sample Fitur (Kata-Kata Unik)
    Menampilkan 10 kata pertama yang dihasilkan setelah proses vektorisasi.
 
 
 ## Modeling
 
 1. Content-Based Filtering
-Deskripsi Model:
-Model ini menggunakan TF-IDF (Term Frequency-Inverse Document Frequency) untuk mengubah teks dari deskripsi film dan genre menjadi vektor numerik, kemudian menghitung kesamaan antarfilm menggunakan cosine similarity. Film yang memiliki kesamaan tertinggi dengan film yang dipilih akan direkomendasikan.
+Deskripsi Model
+Model ini membangun sistem rekomendasi berdasarkan kemiripan antarfilm menggunakan cosine similarity. Setiap film direpresentasikan dalam bentuk vektor fitur berdasarkan deskripsi dan genre film, kemudian dihitung kesamaannya dengan film lain. Film dengan nilai kesamaan tertinggi akan direkomendasikan kepada pengguna.
 
 Kelebihan:
-- Tidak memerlukan data rating pengguna, cocok untuk film baru.
-- Memberikan rekomendasi berdasarkan kemiripan konten film, sehingga lebih relevan bagi pengguna yang mencari film serupa.
+Tidak memerlukan data rating pengguna, sehingga tetap dapat memberikan rekomendasi untuk film baru.
+Memberikan rekomendasi yang lebih relevan karena didasarkan pada kemiripan konten film.
 
 Kekurangan:
-- Bisa menghasilkan rekomendasi yang kurang bervariasi karena hanya mempertimbangkan kesamaan teks.
-- Tidak mempertimbangkan faktor seperti rating dan popularitas.
+Bisa menghasilkan rekomendasi yang kurang bervariasi karena hanya mempertimbangkan kesamaan teks.
+Tidak mempertimbangkan faktor lain seperti rating dan popularitas film.
 
 Top 5 Rekomendasi untuk Film 'Avatar':
 Apollo 18
@@ -136,11 +151,9 @@ Kekurangan:
 - Bisa memberikan film yang sudah sangat dikenal pengguna, mengurangi kemungkinan menemukan film baru.
 
 Top 5 Film Berdasarkan Popularitas:
-Minions – Popularity: 875.58 | Genre: Family, Animation, Adventure, Comedy
-Interstellar – Popularity: 724.25 | Genre: Adventure, Drama, Science Fiction
-Deadpool – Popularity: 514.57 | Genre: Action, Adventure, Comedy
-Guardians of the Galaxy – Popularity: 481.09 | Genre: Action, Science Fiction, Adventure
-Mad Max: Fury Road – Popularity: 434.27 | Genre: Action, Adventure, Science Fiction, Thriller
+
+<img width="554" alt="image" src="https://github.com/user-attachments/assets/6a4c80b7-75f8-4b2d-b0af-182a9f308a7c" />
+
 
 3. Genre-Based Recommendation
 Deskripsi Model:
@@ -155,11 +168,8 @@ Kekurangan:
 - Bergantung pada kualitas rating yang bisa subjektif.
 
 Top 5 Film Berdasarkan Genre 'Action':
-One Man's Hero – Vote Average: 9.3 | Genre: Western, Action, Drama, History
-The Empire Strikes Back – Vote Average: 8.2 | Genre: Adventure, Action, Science Fiction
-Seven Samurai – Vote Average: 8.2 | Genre: Action, Drama
-The Dark Knight – Vote Average: 8.2 | Genre: Drama, Action, Crime, Thriller
-The Lord of the Rings: The Return of the King – Vote Average: 8.1 | Genre: Adventure, Fantasy, Action
+
+<img width="553" alt="image" src="https://github.com/user-attachments/assets/71ff4668-b6a3-40a7-aaff-425e17889a2a" />
 
 
 ## Evaluation
