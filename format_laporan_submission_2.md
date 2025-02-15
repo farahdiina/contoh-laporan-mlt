@@ -5,7 +5,6 @@
   Dalam era digital saat ini, jumlah film yang tersedia meningkat secara signifikan, baik melalui platform streaming maupun bioskop. Keberagaman genre, alur cerita, dan tema film yang beragam seringkali membuat penonton kesulitan dalam memilih film yang sesuai dengan preferensi mereka. Untuk mengatasi masalah ini, sistem rekomendasi film menjadi alat yang penting dalam membantu pengguna menemukan konten yang relevan dan menarik. Salah satu pendekatan yang umum digunakan dalam sistem rekomendasi adalah Content-Based Filtering. Metode ini menganalisis konten dari item yang disukai oleh pengguna dan merekomendasikan item lain yang memiliki kesamaan dalam hal fitur seperti genre, sutradara, aktor, dan deskripsi. Sebagai contoh, jika seorang pengguna menyukai film dengan genre aksi dan dibintangi oleh aktor tertentu, sistem akan merekomendasikan film lain dengan karakteristik serupa (Fajriansyah, 2021)
   Dalam implementasinya, Content-Based Filtering sering memanfaatkan teknik seperti Term Frequency-Inverse Document Frequency (TF-IDF) untuk mengubah teks deskripsi film menjadi representasi numerik, yang kemudian digunakan untuk menghitung kesamaan antar film menggunakan metrik seperti cosine similarity. Pendekatan ini memungkinkan sistem untuk memberikan rekomendasi yang dipersonalisasi berdasarkan preferensi unik setiap pengguna (Fajriansyah,2021).  Namun, meskipun efektif, metode ini memiliki keterbatasan, seperti kecenderungan untuk hanya merekomendasikan item yang mirip dengan yang sudah dikenal pengguna, sehingga mengurangi kemungkinan penemuan item baru yang berbeda. Oleh karena itu, seringkali digunakan pendekatan hibrida yang menggabungkan Content-Based Filtering dengan metode lain, seperti Collaborative Filtering, untuk meningkatkan kualitas rekomendasi (Abdillah, 2024). Dengan demikian, pengembangan sistem rekomendasi film yang efektif memerlukan pemahaman mendalam tentang preferensi pengguna dan karakteristik konten, serta penerapan metode dan algoritma yang tepat untuk memastikan rekomendasi yang akurat dan relevan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
 Proyek sistem rekomendasi film ini penting karena membantu pengguna menemukan film yang sesuai dengan preferensi mereka di tengah banyaknya pilihan yang tersedia. Tanpa sistem rekomendasi, pengguna harus mencari film secara manual, yang dapat memakan waktu dan tidak efisien. Dengan menggunakan Content-Based Filtering dan teknik TF-IDF serta cosine similarity, sistem ini memberikan rekomendasi yang lebih personal dan relevan. Selain itu, proyek ini juga berkontribusi dalam meningkatkan pengalaman pengguna di platform streaming atau layanan berbasis film, yang pada akhirnya dapat meningkatkan kepuasan pelanggan dan keterlibatan mereka.
 
 Referensi: 
@@ -18,8 +17,7 @@ Abdillah, dkk. 2024. [Sistem Rekomendasi Film Menggunakan Metode Content-Based F
 
 Menjelaskan pernyataan masalah:
 - Pernyataan Masalah 1: Pengguna kesulitan menemukan film yang sesuai dengan preferensi mereka karena banyaknya pilihan yang tersedia.
-- Pernyataan Masalah 2: Sistem rekomendasi tradisional sering memberikan rekomendasi yang kurang relevan dan tidak dipersonalisasi dengan baik.
-- Pernyataan Masalah 3: Algoritma rekomendasi yang tidak optimal cenderung membatasi eksplorasi film baru dan hanya menampilkan film yang sudah dikenal pengguna.
+- Pernyataan Masalah 2: Algoritma rekomendasi yang tidak optimal cenderung membatasi eksplorasi film baru dan hanya menampilkan film yang sudah dikenal pengguna.
 
 ### Goals
 
@@ -34,11 +32,9 @@ Menggunakan metode Content-Based Filtering, TF-IDF, dan cosine similarity untuk 
 Mencegah rekomendasi yang hanya berfokus pada film yang sudah dikenal pengguna, sehingga mereka dapat menemukan film baru yang masih relevan dengan preferensi mereka.
 
     ### Solution statements
-    - Solution Statement 1: Content-Based Filtering
-      Pendekatan ini menganalisis karakteristik film seperti genre, sutradara, aktor, dan deskripsi untuk menemukan kesamaan antar film. Sistem akan merekomendasikan film yang memiliki kemiripan dengan film yang sudah disukai pengguna.
-    - Solution Statement 2: Hybrid Filtering (Content-Based + Collaborative Filtering)
-Untuk mengatasi keterbatasan Content-Based Filtering yang hanya merekomendasikan film serupa dengan yang sudah ditonton
-
+  Solution Statement: Content-Based Filtering
+  Pendekatan ini menganalisis karakteristik film seperti genre, sutradara, aktor, dan deskripsi untuk menemukan kesamaan antar film. Sistem akan merekomendasikan film yang memiliki kemiripan dengan film yang sudah disukai pengguna.
+    
 ## Data Understanding
   Dataset yang digunakan dalam proyek ini berisi 4.803 data film dengan 20 kolom fitur, mencakup informasi seperti judul, genre, deskripsi (overview), popularitas, anggaran produksi (budget), pendapatan (revenue), dan rating penonton. Beberapa fitur memiliki nilai yang hilang, terutama pada homepage (3.091 data kosong), tagline (844 data kosong), overview (3 data kosong), dan runtime (2 data kosong). Oleh karena itu, diperlukan penanganan nilai yang hilang sebelum analisis lebih lanjut. Dari analisis statistik, diketahui bahwa rata-rata rating film adalah 6.09, dengan nilai minimum 0 dan maksimum 10. Popularitas film bervariasi signifikan, dengan nilai tertinggi mencapai 875.58, menunjukkan adanya perbedaan yang besar dalam tingkat ketertarikan penonton terhadap berbagai film. Dataset ini dapat diakses melalui sumber berikut: [[https://www.kaggle.com/datasets/pythonafroz/movies-recomandation?select=tmdb_5000_movies.csv]]
 
@@ -66,7 +62,7 @@ Variabel-variabel pada dataset adalah sebagai berikut:
 - vote_average : Rata-rata rating film berdasarkan ulasan penonton.
 - vote_count : Jumlah ulasan atau suara yang diberikan untuk film tersebut.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+Exploratory Data Analysis
 - distribusi ranting film
   
 <img width="638" alt="image" src="https://github.com/user-attachments/assets/335aa2bf-64d6-441c-9a55-3cbc68ebf14f" />
@@ -120,116 +116,99 @@ Grafik ini menunjukkan distribusi budget film, yang memiliki kecendrungan ke kan
 ## Modeling
 
 1. Content-Based Filtering
-Deskripsi Model
-Model ini membangun sistem rekomendasi berdasarkan kemiripan antarfilm menggunakan cosine similarity. Setiap film direpresentasikan dalam bentuk vektor fitur berdasarkan deskripsi dan genre film, kemudian dihitung kesamaannya dengan film lain. Film dengan nilai kesamaan tertinggi akan direkomendasikan kepada pengguna.
+   Deskripsi Model
+   Model ini membangun sistem rekomendasi berdasarkan kemiripan antarfilm menggunakan cosine similarity. Setiap film direpresentasikan dalam bentuk vektor fitur berdasarkan deskripsi dan genre film, kemudian dihitung kesamaannya dengan film lain. Film dengan nilai kesamaan tertinggi akan direkomendasikan kepada pengguna.
+   
+   Kelebihan:
+   - Tidak memerlukan data rating pengguna, sehingga tetap dapat memberikan rekomendasi untuk film baru.
+   - Memberikan rekomendasi yang lebih relevan karena didasarkan pada kemiripan konten film.
+   
+   Kekurangan:
+   - Bisa menghasilkan rekomendasi yang kurang bervariasi karena hanya mempertimbangkan kesamaan teks.
+   - Tidak mempertimbangkan faktor lain seperti rating dan popularitas film.
+   
+   Top 5 Rekomendasi untuk Film 'Avatar':
 
-Kelebihan:
-Tidak memerlukan data rating pengguna, sehingga tetap dapat memberikan rekomendasi untuk film baru.
-Memberikan rekomendasi yang lebih relevan karena didasarkan pada kemiripan konten film.
-
-Kekurangan:
-Bisa menghasilkan rekomendasi yang kurang bervariasi karena hanya mempertimbangkan kesamaan teks.
-Tidak mempertimbangkan faktor lain seperti rating dan popularitas film.
-
-Top 5 Rekomendasi untuk Film 'Avatar':
-Apollo 18
-The Helix... Loaded
-The Matrix
-The American
-The Inhabited Island
+   <img width="418" alt="image" src="https://github.com/user-attachments/assets/bf8e3f0a-008a-4e02-bbef-bb07762dc14f" />
 
 2. Popularity-Based Recommendation
-Deskripsi Model:
-Model ini merekomendasikan film berdasarkan popularitas tertinggi, yang dihitung dari metrik seperti jumlah vote dan rating rata-rata.
+   Deskripsi Model:
+   Model ini merekomendasikan film berdasarkan popularitas tertinggi, yang dihitung dari metrik seperti jumlah vote dan rating rata-rata.
+   
+   Kelebihan:
+   - Mudah diterapkan dan cepat dalam memberikan rekomendasi.
+   - Ideal untuk pengguna yang ingin menonton film populer tanpa mempertimbangkan preferensi tertentu.
+     
+   Kekurangan:
+   - Tidak bersifat personal karena hanya mempertimbangkan popularitas.
+   - Bisa memberikan film yang sudah sangat dikenal pengguna, mengurangi kemungkinan menemukan film baru.
+   - 
+     Top 5 Film Berdasarkan Popularitas:
 
-Kelebihan:
-- Mudah diterapkan dan cepat dalam memberikan rekomendasi.
-- Ideal untuk pengguna yang ingin menonton film populer tanpa mempertimbangkan preferensi tertentu.
-
-Kekurangan:
-- Tidak bersifat personal karena hanya mempertimbangkan popularitas.
-- Bisa memberikan film yang sudah sangat dikenal pengguna, mengurangi kemungkinan menemukan film baru.
-
-Top 5 Film Berdasarkan Popularitas:
-
-<img width="554" alt="image" src="https://github.com/user-attachments/assets/6a4c80b7-75f8-4b2d-b0af-182a9f308a7c" />
-
+     <img width="554" alt="image" src="https://github.com/user-attachments/assets/6a4c80b7-75f8-4b2d-b0af-182a9f308a7c" />
 
 3. Genre-Based Recommendation
-Deskripsi Model:
-Model ini memungkinkan pengguna untuk memilih genre tertentu dan merekomendasikan film dengan rating tertinggi dalam kategori tersebut.
 
-Kelebihan:
-- Memungkinkan pengguna untuk mendapatkan rekomendasi berdasarkan preferensi genre tertentu.
-- Cocok bagi pengguna yang menyukai jenis film tertentu dan ingin eksplorasi lebih dalam.
+   Deskripsi Model:
+   Model ini memungkinkan pengguna untuk memilih genre tertentu dan merekomendasikan film dengan rating tertinggi dalam kategori tersebut.
 
-Kekurangan:
-- Tidak mempertimbangkan faktor individual pengguna seperti histori tontonan.
-- Bergantung pada kualitas rating yang bisa subjektif.
+   Kelebihan:
+   - Memungkinkan pengguna untuk mendapatkan rekomendasi berdasarkan preferensi genre tertentu.
+   - Cocok bagi pengguna yang menyukai jenis film tertentu dan ingin eksplorasi lebih dalam.
+   
+   Kekurangan:
+   - Tidak mempertimbangkan faktor individual pengguna seperti histori tontonan.
+   - Bergantung pada kualitas rating yang bisa subjektif.
 
-Top 5 Film Berdasarkan Genre 'Action':
+   Top 5 Film Berdasarkan Genre 'Action':
 
-<img width="553" alt="image" src="https://github.com/user-attachments/assets/71ff4668-b6a3-40a7-aaff-425e17889a2a" />
+   <img width="553" alt="image" src="https://github.com/user-attachments/assets/71ff4668-b6a3-40a7-aaff-425e17889a2a" />
 
 
 ## Evaluation
 Untuk mengevaluasi kinerja sistem rekomendasi yang dikembangkan, digunakan beberapa metrik evaluasi yang sesuai dengan pendekatan yang diterapkan.
-1. Mean Average Precision at K (MAP@K)
+
+1. Precision@K & Recall@K
+  
+   <img width="229" alt="image" src="https://github.com/user-attachments/assets/dfae7253-7a45-4fa3-8c58-62f89aa3b6d3" />
+
+   Cara Kerja:
+   - Precision@K mengukur proporsi item yang relevan di antara K rekomendasi teratas.
+   - Recall@K mengukur seberapa banyak item relevan yang berhasil ditemukan dalam K rekomendasi teratas.
    
-   <img width="226" alt="image" src="https://github.com/user-attachments/assets/82724b6a-094d-42ee-91c8-4a67fc366bbc" />
+   Hasil  :
 
-Di mana:
-U adalah jumlah pengguna
-K adalah jumlah rekomendasi teratas yang dipertimbangkan
-P(k) adalah presisi pada posisi ke-k dalam daftar rekomendasi
+   <img width="415" alt="image" src="https://github.com/user-attachments/assets/dff162f2-7617-414c-9526-7c85d534dc0f" />
 
-Cara Kerja:
-Metrik ini mengukur seberapa relevan film yang direkomendasikan dengan preferensi pengguna.
-Semakin tinggi nilai MAP@K, semakin baik sistem rekomendasi dalam memberikan rekomendasi yang relevan.
+   - Content-Based Filtering: Precision@3 = 0.44, Recall@3 = 0.44
 
-Hasil:
-Content-Based Filtering: 0.67
-Popularity-Based Recommendation: 0.55
-Genre-Based Recommendation: 0.60
+     Metode ini berhasil merekomendasikan item yang cukup relevan bagi pengguna, dengan 44% dari 3 rekomendasi teratas benar-benar relevan. Selain itu, metode ini juga berhasil menangkap 44% dari semua item relevan yang ada dalam daftar pengguna.
 
-Kesimpulan: Content-Based Filtering memberikan rekomendasi yang lebih sesuai dengan minat pengguna dibandingkan metode lainnya.
+   - Popularity-Based Recommendation: Precision@3 = 0.22, Recall@3 = 0.22
 
-2. Root Mean Square Error (RMSE)
-   
-   <img width="201" alt="image" src="https://github.com/user-attachments/assets/8a2ebc32-c085-4801-adb5-611a34e6a78b" />
+     Popularitas saja tidak menjamin relevansi yang tinggi bagi pengguna tertentu. Hanya 22% dari 3 rekomendasi teratas yang benar-benar sesuai dengan preferensi pengguna. Sistem ini juga hanya berhasil menangkap 22% dari total item relevan yang dimiliki pengguna.
 
-Di mana:
-𝑦𝑖 adalah rating aktual film oleh pengguna
-𝑦𝑖' adalah rating yang diprediksi oleh sistem
-n adalah jumlah sampel
+   - Genre-Based Recommendation: Precision@3 = 0.44, Recall@3 = 0.44
 
-Cara Kerja:
-Metrik ini digunakan untuk menilai seberapa jauh prediksi sistem dari rating asli pengguna. Semakin rendah nilai RMSE, semakin baik akurasi model dalam memprediksi preferensi pengguna.
+     Sama dengan Content-Based Filtering, metode ini mampu memberikan 44% rekomendasi yang relevan. Selain itu, recall juga menunjukkan bahwa metode ini dapat menangkap 44% dari total film yang benar-benar relevan.
 
-Hasil:
-Content-Based Filtering: 0.85
-Popularity-Based Recommendation: 1.10
-Genre-Based Recommendation: 0.95
+2. Coverage
 
-Kesimpulan: Content-Based Filtering memiliki kesalahan prediksi yang lebih kecil dibandingkan model lainnya.
+   <img width="329" alt="image" src="https://github.com/user-attachments/assets/de0e0c3e-3ac7-4b9b-98be-82a5c7d4e726" />
 
-3. Coverage
-   
-   <img width="251" alt="image" src="https://github.com/user-attachments/assets/4169b2fe-383f-427c-8e41-f4b491bd1054" />
+   Cara Kerja:
 
-Cara Kerja:
-Coverage mengukur seberapa luas sistem rekomendasi dalam menyarankan berbagai film dari dataset.
-Semakin tinggi coverage, semakin beragam rekomendasi yang diberikan.
+   Coverage mengukur seberapa luas sistem rekomendasi dalam menyarankan berbagai film dari dataset. Semakin tinggi coverage, semakin beragam rekomendasi yang diberikan.
 
-Hasil:
-Content-Based Filtering: 40%
-Popularity-Based Recommendation: 15%
-Genre-Based Recommendation: 25%
+   Hasil perhitungan Coverage:
 
-Kesimpulan: Content-Based Filtering memiliki cakupan rekomendasi yang lebih luas dibandingkan metode lain.
+   <img width="420" alt="image" src="https://github.com/user-attachments/assets/e7e4b3c2-9486-403a-b97c-23736d072987" />
 
+   - Content-Based Filtering (0.10%) → Model hanya merekomendasikan film yang mirip dengan yang pernah ditonton pengguna. Jika film dengan fitur serupa jumlahnya sedikit, maka cakupan rekomendasi juga terbatas.
+   - Popularity-Based Recommendation (0.10%) → Model ini hanya merekomendasikan film yang paling populer, yang jumlahnya lebih sedikit dibanding total film dalam dataset.
+   - Genre-Based Recommendation (0.10%) → Model ini merekomendasikan film berdasarkan genre tertentu yang dipilih, yang berarti cakupannya j
 
 Kesimpulan Akhir
-Proyek ini berhasil mengembangkan sistem rekomendasi film berbasis content-based filtering menggunakan TF-IDF dan cosine similarity. Sistem ini mampu memberikan rekomendasi film yang relevan berdasarkan kemiripan deskripsi dan genre, serta menyediakan alternatif rekomendasi berdasarkan popularitas dan genre pilihan pengguna. Dari hasil pengujian, sistem mampu menyesuaikan rekomendasi dengan preferensi pengguna, sehingga membantu mengatasi kesulitan dalam memilih film dari banyaknya pilihan yang tersedia (Pernyataan Masalah 1). Selain itu, pendekatan content-based filtering meningkatkan relevansi rekomendasi dibandingkan sistem tradisional yang kurang personalisasi (Pernyataan Masalah 2). Namun, sistem ini memiliki keterbatasan dalam mengeksplorasi film baru yang berbeda dari riwayat pengguna (Pernyataan Masalah 3), karena hanya berfokus pada kemiripan fitur. Secara keseluruhan, proyek ini mencapai tujuannya dalam menyediakan rekomendasi film yang lebih sesuai dengan preferensi pengguna, meskipun masih ada ruang untuk perbaikan, seperti menggabungkan metode collaborative filtering atau hybrid filtering untuk meningkatkan variasi rekomendasi.
 
-**---Ini adalah bagian akhir laporan---**
+Proyek ini berhasil mengembangkan sistem rekomendasi film berbasis content-based filtering menggunakan TF-IDF dan cosine similarity. Sistem ini mampu memberikan rekomendasi film yang relevan berdasarkan kemiripan deskripsi dan genre, serta menyediakan alternatif rekomendasi berdasarkan popularitas dan genre pilihan pengguna. Dari hasil pengujian, sistem mampu menyesuaikan rekomendasi dengan preferensi pengguna, sehingga membantu mengatasi kesulitan dalam memilih film dari banyaknya pilihan yang tersedia. Namun, sistem ini memiliki keterbatasan dalam mengeksplorasi film baru yang berbeda dari riwayat pengguna karena hanya berfokus pada kemiripan fitur. Secara keseluruhan, proyek ini mencapai tujuannya dalam menyediakan rekomendasi film yang lebih sesuai dengan preferensi pengguna, meskipun masih ada ruang untuk perbaikan, seperti menggabungkan metode collaborative filtering atau hybrid filtering untuk meningkatkan variasi rekomendasi.
+
